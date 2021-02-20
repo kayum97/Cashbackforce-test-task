@@ -60,7 +60,9 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = MainTableViewCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MainTableViewCell.identifierForTableView, for: indexPath) as? MainTableViewCell else {
+            return UITableViewCell()
+        }
         
         cell.data = albums[indexPath.row]
         return cell
@@ -68,6 +70,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let albumItem = albums[indexPath.row]
-        presenter.tappOnTheAlbum(albumItem: albumItem)
+        presenter.tapOnTheAlbum(albumItem: albumItem)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

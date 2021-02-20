@@ -40,6 +40,11 @@ class MainTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        albumCover.image = nil
+    }
+    
     private func createUI() {
         contentView.addSubview(albumCover)
         contentView.addSubview(title)

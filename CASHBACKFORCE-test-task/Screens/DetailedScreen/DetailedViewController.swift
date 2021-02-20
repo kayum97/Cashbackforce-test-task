@@ -50,6 +50,7 @@ class DetailedViewController: UIViewController {
     private func createUI() {
         view.addSubview(titleLabel)
         view.addSubview(albumCover)
+        albumCover.backgroundColor = .lightGray
         
         view.addSubview(urlButton)
         urlButton.setTitleColor(.black, for: .normal)

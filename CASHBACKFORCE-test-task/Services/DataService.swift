@@ -10,7 +10,7 @@ import RealmSwift
 
 class DataService {
     func saveAlbums(albums: [ResponseModel], completion: @escaping (AppError?) -> Void) {
-        DispatchQueue(label: "DataService.getAllData", qos: .background).async {
+        DispatchQueue(label: "DataService.saveAlbums", qos: .background).async {
             
             let albums: [ResponseModelRealm] = albums.map { albumItem in
                 let dataRealm = ResponseModelRealm()

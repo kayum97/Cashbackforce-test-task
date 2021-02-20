@@ -9,7 +9,7 @@ import Foundation
 
 protocol MainPresenterProtocol: class {
     func viewDidLoad()
-    func tappOnTheAlbum(albumItem: ResponseModel)
+    func tapOnTheAlbum(albumItem: ResponseModel)
 }
 
 class MainPresenter: MainPresenterProtocol {
@@ -21,21 +21,6 @@ class MainPresenter: MainPresenterProtocol {
     init(view: MainViewProtocol, router: RouterProtocol) {
         self.view = view
         self.router = router
-    }
-    
-    private func getAllData() {
-        self.dataService.getAllAlbums() { [weak self] resultDataFromReal in
-            self?.view.updateData(result: resultDataFromReal)
-        }
-    }
-    
-    private func saveAlbums(albums: [ResponseModel]) {
-        dataService.saveAlbums(albums: albums) { [weak self] result in
-            guard let result = result else {
-                return
-            }
-            self?.view.showSimpleAlert(title: "Error", message: "\(result.rawValue)")
-        }
     }
     
     func viewDidLoad() {
@@ -51,7 +36,22 @@ class MainPresenter: MainPresenterProtocol {
         }
     }
     
-    func tappOnTheAlbum(albumItem: ResponseModel) {
+    func tapOnTheAlbum(albumItem: ResponseModel) {
         self.router.showDetailScreen(albumItem: albumItem)
-      }
+    }
+    
+    private func getAllData() {
+        self.dataService.getAllAlbums() { [weak self] resultDataFromRealm in
+            self?.view.updateData(result: resultDataFromRealm)
+        }
+    }
+    
+    private func saveAlbums(albums: [ResponseModel]) {
+        dataService.saveAlbums(albums: albums) { [weak self] result in
+            guard let result = result else {
+                return
+            }
+            self?.view.showSimpleAlert(title: "Error", message: "\(result.rawValue)")
+        }
+    }
 }

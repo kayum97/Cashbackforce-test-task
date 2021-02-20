@@ -14,15 +14,13 @@ protocol RouterProtocol {
 }
 
 class Router: RouterProtocol {
-    private var mainScreenBuilder = MainScreenBuilder()
-    private var detailedScreenBuilder = DetailedScreenBuilder()
     
     private let navigationController = UINavigationController()
     
     func showMainScreen() {
         guard let window = AppDelegate.shared.window else { return }
         
-        let mainScreenViewController = mainScreenBuilder.createMainScreen(router: self)
+        let mainScreenViewController = MainScreenBuilder().createMainScreen(router: self)
         navigationController.viewControllers = [mainScreenViewController]
         
         window.rootViewController = navigationController
@@ -30,7 +28,7 @@ class Router: RouterProtocol {
     }
     
     func showDetailScreen(albumItem: ResponseModel) {
-        let DetailedScreenViewController = detailedScreenBuilder.createDetailedScreen(albumItem: albumItem)
+        let DetailedScreenViewController = DetailedScreenBuilder().createDetailedScreen(albumItem: albumItem)
         
         navigationController.pushViewController(DetailedScreenViewController, animated: true)
     }
